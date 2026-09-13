@@ -1,0 +1,7 @@
+{
+  "name": "ResumePilot",
+  "description": "AI-powered Resume Enhancer, Job Matcher, and Email Application Automation platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

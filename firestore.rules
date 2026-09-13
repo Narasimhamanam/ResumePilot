@@ -1,0 +1,65 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper function
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+    }
+
+    match /resumes/{resumeId} {
+      allow read, write: if isSignedIn() && resource == null || resource.data.userId == request.auth.uid;
+    }
+
+    match /resume_versions/{versionId} {
+      allow read, write: if isSignedIn();
+    }
+
+    match /resume_analysis/{analysisId} {
+      allow read, write: if isSignedIn();
+    }
+
+    match /job_descriptions/{jobDescId} {
+      allow read, write: if isSignedIn();
+    }
+
+    match /jobs/{jobId} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+
+    match /job_matches/{matchId} {
+      allow read, write: if isSignedIn();
+    }
+
+    match /applications/{appId} {
+      allow read, write: if isSignedIn();
+    }
+
+    match /application_emails/{emailId} {
+      allow read, write: if isSignedIn();
+    }
+
+    match /email_accounts/{accountId} {
+      allow read, write: if isSignedIn();
+    }
+
+    match /automation_rules/{ruleId} {
+      allow read, write: if isSignedIn();
+    }
+
+    match /followups/{followupId} {
+      allow read, write: if isSignedIn();
+    }
+
+    match /activity_logs/{logId} {
+      allow read, write: if isSignedIn();
+    }
+  }
+}
